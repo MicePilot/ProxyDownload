@@ -1,5 +1,13 @@
 name: Download and Upload Artifact
-on: [workflow_dispatch]
+on: 
+   workflow_dispatch:
+     inputs:
+       download_link:
+         description: '请输入下载地址'
+         required: true
+       file_name:
+         description: '请输入文件名字'
+         required: true
 
 jobs:
   build:
@@ -17,11 +25,11 @@ jobs:
 
     - name: Download software
       run: |
-        wget ${{ steps.input.outputs.download_link }}
-        mv download_file ${{ steps.input.outputs.file_name }}
+        wget -O ${{ steps.config.outputs.file_name }} ${{ steps.config.outputs.download_link }
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: ${{ steps.input.outputs.file_name }}
         path: ${{ steps.input.outputs.file_name }}
+        retention-days: 3
