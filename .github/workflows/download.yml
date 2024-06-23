@@ -17,12 +17,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: User Input
-      id: input
-      run: |
-        echo "::set-output name=download_link::${{ github.event.inputs.download_link }}"
-        echo "::set-output name=file_name::${{ github.event.inputs.file_name }}"
-
     - name: Download software
       run: |
         wget -O ${{ github.event.inputs.file_name }} ${{ github.event.inputs.download_link }}
