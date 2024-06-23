@@ -25,7 +25,7 @@ jobs:
 
     - name: Download software
       run: |
-        wget -O ${{ steps.config.outputs.file_name }} ${{ steps.config.outputs.download_link }
+        wget -O ${{ github.event.inputs.file_name }} ${{ github.event.inputs.download_link }}
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
