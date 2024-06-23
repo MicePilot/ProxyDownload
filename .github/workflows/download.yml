@@ -1,0 +1,27 @@
+name: Download and Upload Artifact
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: User Input
+      id: input
+      run: |
+        echo "::set-output name=download_link::${{ github.event.inputs.download_link }}"
+        echo "::set-output name=file_name::${{ github.event.inputs.file_name }}"
+
+    - name: Download software
+      run: |
+        wget ${{ steps.input.outputs.download_link }}
+        mv download_file ${{ steps.input.outputs.file_name }}
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ steps.input.outputs.file_name }}
+        path: ${{ steps.input.outputs.file_name }}
