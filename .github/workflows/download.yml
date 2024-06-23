@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: User Input
       id: input
@@ -28,7 +28,7 @@ jobs:
         wget -O ${{ github.event.inputs.file_name }} ${{ github.event.inputs.download_link }}
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.input.outputs.file_name }}
         path: ${{ steps.input.outputs.file_name }}
